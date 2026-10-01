@@ -1,1 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>StudySync - BSIS 1A Academic Planner</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">S</div>
+            <div>
+                <h2>StudySync</h2>
+                <small>BSIS 1A</small>
+            </div>
+        </div>
+
+        <nav>
+            <button class="nav-btn active" data-page="dashboard">
+                <span>📊</span> Overview
+            </button>
+
+            <button class="nav-btn" data-page="schedule">
+                <span>📅</span> Class Schedule
+            </button>
+
+            <button class="nav-btn" data-page="tasks">
+                <span>✓</span> To-Do List
+            </button>
+
+            <button class="nav-btn" data-page="reviewer">
+                <span>📚</span> Reviewer
+            </button>
+
+            <button class="nav-btn" data-page="teachers">
+                <span>👩‍🏫</span> Teachers
+            </button>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="student-card">
+                <div class="avatar">BS</div>
+                <div>
+                    <strong>BSIS 1A</strong>
+                    <small>Student</small>
+                </div>
+            </div>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+
+        <!-- TOP BAR -->
+        <header class="topbar">
+
+            <div>
+                <h1 id="pageTitle">Overview</h1>
+                <p id="dateText"></p>
+            </div>
+
+            <div class="top-actions">
+
+                <div class="search-box">
+                    🔍
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search..."
+                    >
+                </div>
+
+                <button class="icon-btn" id="notificationBtn">
+                    🔔
+                    <span id="notificationCount" class="notification-count">0</span>
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= DASHBOARD ================= -->
+
+        <section id="dashboard" class="page active-page">
+
+            <div class="welcome">
+                <div>
+                    <p class="small-label">WELCOME BACK!</p>
+                    <h2>Good day, BSIS 1A! 👋</h2>
+                    <p>
+                        Organize your classes, tasks, reviewers, and academic activities.
+                    </p>
+                </div>
+
+                <div class="welcome-icon">
+                    📚
+                </div>
+            </div>
+
+
+            <!-- STAT CARDS -->
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon blue">📅</div>
+                    <div>
+                        <span>Classes</span>
+                        <strong id="classCount">0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon orange">📝</div>
+                    <div>
+                        <span>Pending Tasks</span>
+                        <strong id="taskCount">0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon green">📚</div>
+                    <div>
+                        <span>Reviewers</span>
+                        <strong id="reviewerCount">0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon purple">👩‍🏫</div>
+                    <div>
+                        <span>Teachers</span>
+                        <strong id="teacherCount">0</strong>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-grid">
+
+                <!-- UPCOMING TASKS -->
+
+                <div class="panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <h3>Upcoming Tasks</h3>
+                            <p>Your academic tasks</p>
+                        </div>
+
+                        <button class="small-btn" onclick="showPage('tasks')">
+                            View All
+                        </button>
+                    </div>
+
+                    <div id="dashboardTasks" class="list"></div>
+
+                </div>
+
+
+                <!-- TODAY'S CLASSES -->
+
+                <div class="panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <h3>Today's Classes</h3>
+                            <p>Your schedule</p>
+                        </div>
+
+                        <button class="small-btn" onclick="showPage('schedule')">
+                            Schedule
+                        </button>
+                    </div>
+
+                    <div id="dashboardClasses" class="list"></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- TEACHER PREVIEW -->
+
+            <div class="panel">
+
+                <div class="panel-header">
+                    <div>
+                        <h3>My Teachers</h3>
+                        <p>Your instructors</p>
+                    </div>
+
+                    <button class="small-btn" onclick="showPage('teachers')">
+                        View Teachers
+                    </button>
+                </div>
+
+                <div id="teacherPreview" class="teacher-preview"></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= SCHEDULE ================= -->
+
+        <section id="schedule" class="page">
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>Class Schedule</h2>
+                    <p>Manage your weekly classes.</p>
+                </div>
+
+                <button class="primary-btn" id="addClassBtn">
+                    + Add Class
+                </button>
+
+            </div>
+
+
+            <div class="schedule-grid">
+
+                <div class="day-column">
+                    <h3>Monday</h3>
+                    <div id="mondayClasses"></div>
+                </div>
+
+                <div class="day-column">
+                    <h3>Tuesday</h3>
+                    <div id="tuesdayClasses"></div>
+                </div>
+
+                <div class="day-column">
+                    <h3>Wednesday</h3>
+                    <div id="wednesdayClasses"></div>
+                </div>
+
+                <div class="day-column">
+                    <h3>Thursday</h3>
+                    <div id="thursdayClasses"></div>
+                </div>
+
+                <div class="day-column">
+                    <h3>Friday</h3>
+                    <div id="fridayClasses"></div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= TASKS ================= -->
+
+        <section id="tasks" class="page">
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>To-Do List</h2>
+                    <p>Keep track of your academic tasks.</p>
+                </div>
+
+                <button class="primary-btn" id="addTaskBtn">
+                    + Add Task
+                </button>
+
+            </div>
+
+
+            <div class="task-filters">
+
+                <button class="filter-btn active" data-filter="all">
+                    All
+                </button>
+
+                <button class="filter-btn" data-filter="pending">
+                    Pending
+                </button>
+
+                <button class="filter-btn" data-filter="completed">
+                    Completed
+                </button>
+
+            </div>
+
+            <div id="taskList" class="task-list"></div>
+
+        </section>
+
+
+        <!-- ================= REVIEWER ================= -->
+
+        <section id="reviewer" class="page">
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>Reviewer & Learning Materials</h2>
+                    <p>Store your study materials here.</p>
+                </div>
+
+                <button class="primary-btn" id="addReviewerBtn">
+                    + Add Reviewer
+                </button>
+
+            </div>
+
+            <div id="reviewerGrid" class="reviewer-grid"></div>
+
+        </section>
+
+
+        <!-- ================= TEACHERS ================= -->
+
+        <section id="teachers" class="page">
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>My Teachers</h2>
+                    <p>View your instructors and subjects.</p>
+                </div>
+
+                <button class="primary-btn" id="addTeacherBtn">
+                    + Add Teacher
+                </button>
+
+            </div>
+
+            <div id="teacherGrid" class="teacher-grid"></div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= MODAL ================= -->
+
+    <div id="modal" class="modal">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h2 id="modalTitle">Add Item</h2>
+                <button id="closeModal" class="close-btn">×</button>
+            </div>
+
+            <div id="modalBody"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- NOTIFICATION POPUP -->
+
+    <div id="notificationBox" class="notification-box">
+
+        <h3>🔔 Notifications</h3>
+
+        <div id="notificationList"></div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
